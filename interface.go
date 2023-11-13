@@ -8,7 +8,7 @@ import (
 )
 
 type DBTX interface {
-	ExecContext(context.Context, string, ...interface{}) (pgconn.CommandTag, error)
-	QueryContext(context.Context, string, ...interface{}) (*pgx.Rows, error)
-	QueryRowContext(context.Context, string, ...interface{}) *pgx.Row
+	Exec(context.Context, string, ...interface{}) (pgconn.CommandTag, error)
+	Query(context.Context, string, ...interface{}) (*pgx.Rows, error)
+	QueryRow(context.Context, string, ...interface{}) *pgx.Row
 }

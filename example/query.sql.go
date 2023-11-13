@@ -17,7 +17,7 @@ LIMIT 1
 `
 
 func (q *Queries) GetAuthor(ctx context.Context, id int64) (Author, error) {
-	row := q.db.QueryRowContext(ctx, getAuthor, id)
+	row := q.db.QueryRow(ctx, getAuthor, id)
 	var i Author
 	err := row.Scan(
 		&i.ID,
@@ -34,7 +34,7 @@ FROM authors
 `
 
 func (q *Queries) ListAuthors(ctx context.Context) ([]Author, error) {
-	rows, err := q.db.QueryContext(ctx, listAuthors)
+	rows, err := q.db.Query(ctx, listAuthors)
 	if err != nil {
 		return nil, err
 	}
