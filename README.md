@@ -10,8 +10,8 @@ import (
     "database/sql"
     "log"
 
-    "github.com/yiplee/sqlc"
-    "github.com/yiplee/sqlc/example"
+    "github.com/badgeek/sqlc"
+    "github.com/badgeek/sqlc/example"
 )
 
 func Example_build() {
