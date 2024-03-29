@@ -11,6 +11,7 @@ type (
 		filters       []filter
 		order         string
 		offset, limit int
+		groupBy       string
 	}
 
 	filter struct {
@@ -69,6 +70,12 @@ func (b *Builder) Limit(x int) *Builder {
 	return b
 }
 
+// GroupBy sets columns of GROUP BY in SELECT.
+func (b *Builder) GroupBy(cols string) *Builder {
+	b.groupBy = cols
+	return b
+}
+
 // Build returns compiled SELECT string and args.
 func (b *Builder) Build(query string, args ...interface{}) (string, []interface{}) {
 	var sb strings.Builder
@@ -90,6 +97,12 @@ func (b *Builder) Build(query string, args ...interface{}) (string, []interface{
 		sb.WriteByte('\n')
 
 		args = append(args, filter.args...)
+	}
+
+	if b.groupBy != "" {
+		sb.WriteString("GROUP BY ")
+		sb.WriteString(b.groupBy)
+		sb.WriteByte('\n')
 	}
 
 	if b.order != "" {
